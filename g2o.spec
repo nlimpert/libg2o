@@ -1,19 +1,20 @@
-Name:           ros-kinetic-libg2o
+Name:           g2o
 Version:        2016.4.24
-Release:        1%{?dist}
-Summary:        ROS libg2o package
+Release:        2%{?dist}
+Summary:        A General Framework for Graph Optimization
 
-Group:          Development/Libraries
 License:        BSD
 URL:            https://github.com/RainerKuemmerle/g2o
-Source0:        %{name}-%{version}.tar.gz
-Patch0:         libg2o.libsuffix.patch
+Source0:        https://github.com/RainerKuemmerle/g2o/archive/20160424_git.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:         g2o.libsuffix.patch
+
+Conflicts:      ros-kinetic-libg2o
+Obsoletes:      ros-kinetic-libg2o <= 2016.4.24-1
 
 Requires:       boost-devel
 Requires:       eigen3-devel
 Requires:       mesa-libGL-devel
 Requires:       mesa-libGLU-devel
-#Requires:       ros-kinetic-catkin
 Requires:       suitesparse-devel
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -26,27 +27,19 @@ BuildRequires:  suitesparse-devel
 The libg2o library from http://openslam.org/g2o.html
 
 %prep
-%autosetup -p1 -n libg2o-release-release-kinetic-libg2o-2016.4.24-0
+%autosetup -p1 -n %{name}-20160424_git
 
 %build
-# In case we're installing to a non-standard location, look for a setup.sh
-# in the install tree that was dropped by catkin, and source it.  It will
-# set things like CMAKE_PREFIX_PATH, PKG_CONFIG_PATH, and PYTHONPATH.
-#if [ -f "/opt/ros/kinetic/setup.sh" ]; then . "/opt/ros/kinetic/setup.sh"; fi
 mkdir -p obj-%{_target_platform} && cd obj-%{_target_platform}
 %cmake .. \
         -DSETUPTOOLS_DEB_LAYOUT=OFF \
         -DCATKIN_BUILD_BINARY_PACKAGE="1" \
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-# In case we're installing to a non-standard location, look for a setup.sh
-# in the install tree that was dropped by catkin, and source it.  It will
-# set things like CMAKE_PREFIX_PATH, PKG_CONFIG_PATH, and PYTHONPATH.
-#if [ -f "/opt/ros/kinetic/setup.sh" ]; then . "/opt/ros/kinetic/setup.sh"; fi
-cd obj-%{_target_platform}
-make %{?_smp_mflags} install DESTDIR=%{buildroot}
+pushd obj-%{_target_platform}
+%make_install
 
 %files
 %{_bindir}/*
@@ -54,6 +47,11 @@ make %{?_smp_mflags} install DESTDIR=%{buildroot}
 %{_includedir}/*
 
 %changelog
+* Wed May 03 2017 Till Hofmann <till.hofmann@posteo.de> - 2016.4.24-2
+- Rename to g2o
+- Switch to repository RainerKuemmerle/g2o
+- Clean up Spec file
+
 * Tue May 02 2017 Nicolas Limpert <nicolas.limpert@alumni.fh-aachen.de> - 2016.4.24-1
 - changed install-target to /usr
 
