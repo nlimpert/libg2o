@@ -1,6 +1,6 @@
 Name:           g2o
 Version:        2016.4.24
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A General Framework for Graph Optimization
 
 License:        BSD
@@ -22,6 +22,9 @@ BuildRequires:  eigen3-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  suitesparse-devel
+BuildRequires:  openblas-devel
+BuildRequires:  lapack-devel
+
 
 %description
 The libg2o library from http://openslam.org/g2o.html
@@ -47,6 +50,9 @@ pushd obj-%{_target_platform}
 %{_includedir}/*
 
 %changelog
+* Thu May 04 2017 Till Hofmann <till.hofmann@posteo.de> - 2016.4.24-3
+- Add missing BR: openblas-devel, lapack-devel
+
 * Wed May 03 2017 Till Hofmann <till.hofmann@posteo.de> - 2016.4.24-2
 - Rename to g2o
 - Switch to repository RainerKuemmerle/g2o
