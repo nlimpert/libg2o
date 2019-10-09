@@ -1,36 +1,42 @@
+%global version_major 2017
+%global version_minor 07
+%global version_patch 30
+%global gittag %{version_major}%{version_minor}%{version_patch}_git
 Name:           g2o
-Version:        2016.4.24
-Release:        3%{?dist}
+Version:        %{version_major}.%{version_minor}.%{version_patch}
+Release:        1%{?dist}
 Summary:        A General Framework for Graph Optimization
 
 License:        BSD
 URL:            https://github.com/RainerKuemmerle/g2o
-Source0:        https://github.com/RainerKuemmerle/g2o/archive/20160424_git.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/RainerKuemmerle/g2o/archive/%{gittag}/%{name}-%{version}.tar.gz
 Patch0:         g2o.libsuffix.patch
 
 Conflicts:      ros-kinetic-libg2o
 Obsoletes:      ros-kinetic-libg2o <= 2016.4.24-1
+
+BuildRequires:  boost-devel
+BuildRequires:  cmake
+BuildRequires:  eigen3-devel
+BuildRequires:  gcc-c++
+BuildRequires:  lapack-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  mesa-libGLU-devel
+BuildRequires:  openblas-devel
+BuildRequires:  suitesparse-devel
 
 Requires:       boost-devel
 Requires:       eigen3-devel
 Requires:       mesa-libGL-devel
 Requires:       mesa-libGLU-devel
 Requires:       suitesparse-devel
-BuildRequires:  boost-devel
-BuildRequires:  cmake
-BuildRequires:  eigen3-devel
-BuildRequires:  mesa-libGL-devel
-BuildRequires:  mesa-libGLU-devel
-BuildRequires:  suitesparse-devel
-BuildRequires:  openblas-devel
-BuildRequires:  lapack-devel
 
 
 %description
 The libg2o library from http://openslam.org/g2o.html
 
 %prep
-%autosetup -p1 -n %{name}-20160424_git
+%autosetup -p1 -n %{name}-%{gittag}
 
 %build
 mkdir -p obj-%{_target_platform} && cd obj-%{_target_platform}
@@ -50,6 +56,9 @@ pushd obj-%{_target_platform}
 %{_includedir}/*
 
 %changelog
+* Wed Oct 09 2019 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 2017.07.30-1
+- Update to latest release
+
 * Thu May 04 2017 Till Hofmann <till.hofmann@posteo.de> - 2016.4.24-3
 - Add missing BR: openblas-devel, lapack-devel
 
