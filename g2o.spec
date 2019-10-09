@@ -4,7 +4,7 @@
 %global gittag %{version_major}%{version_minor}%{version_patch}_git
 Name:           g2o
 Version:        %{version_major}.%{version_minor}.%{version_patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A General Framework for Graph Optimization
 
 License:        BSD
@@ -24,13 +24,6 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  openblas-devel
 BuildRequires:  suitesparse-devel
-
-Requires:       boost-devel
-Requires:       eigen3-devel
-Requires:       mesa-libGL-devel
-Requires:       mesa-libGLU-devel
-Requires:       suitesparse-devel
-
 
 %description
 The libg2o library from http://openslam.org/g2o.html
@@ -56,6 +49,9 @@ pushd obj-%{_target_platform}
 %{_includedir}/*
 
 %changelog
+* Wed Oct 09 2019 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 2017.07.30-2
+- Remove unnecessary Requires
+
 * Wed Oct 09 2019 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 2017.07.30-1
 - Update to latest release
 
