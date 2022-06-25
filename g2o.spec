@@ -12,9 +12,6 @@ URL:            https://github.com/RainerKuemmerle/g2o
 Source0:        https://github.com/RainerKuemmerle/g2o/archive/%{gittag}/%{name}-%{version}.tar.gz
 Patch0:         g2o.libsuffix.patch
 
-Conflicts:      ros-kinetic-libg2o
-Obsoletes:      ros-kinetic-libg2o <= 2016.4.24-1
-
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  eigen3-devel
@@ -51,6 +48,7 @@ pushd obj-%{_target_platform}
 %changelog
 * Sat Jun 25 2022 Nicolas Limpert <limpert@fh-aachen.de> - 2020.12.23-1
 - Update to recent version
+- Remove unnecessary Requires
 
 * Wed Oct 09 2019 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 2017.07.30-2
 - Remove unnecessary Requires
