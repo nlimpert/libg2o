@@ -1,10 +1,10 @@
-%global version_major 2017
-%global version_minor 07
-%global version_patch 30
+%global version_major 2020
+%global version_minor 12
+%global version_patch 23
 %global gittag %{version_major}%{version_minor}%{version_patch}_git
 Name:           g2o
 Version:        %{version_major}.%{version_minor}.%{version_patch}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A General Framework for Graph Optimization
 
 License:        BSD
@@ -37,11 +37,11 @@ mkdir -p obj-%{_target_platform} && cd obj-%{_target_platform}
         -DSETUPTOOLS_DEB_LAYOUT=OFF \
         -DCATKIN_BUILD_BINARY_PACKAGE="1" \
 
-%make_build
+%cmake_build
 
 %install
 pushd obj-%{_target_platform}
-%make_install
+%cmake_install
 
 %files
 %{_bindir}/*
@@ -49,6 +49,9 @@ pushd obj-%{_target_platform}
 %{_includedir}/*
 
 %changelog
+* Sat Jun 25 2022 Nicolas Limpert <limpert@fh-aachen.de> - 2020.12.23-1
+- Update to recent version
+
 * Wed Oct 09 2019 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 2017.07.30-2
 - Remove unnecessary Requires
 
